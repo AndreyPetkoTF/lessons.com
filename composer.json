@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "classmap": [
+      "./"
+    ]
+  },
+  "require": {
+    "symfony/var-dumper": "^4.0",
+    "workerman/workerman": "^3.5"
+  }
+}
