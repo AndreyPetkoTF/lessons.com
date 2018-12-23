@@ -8,17 +8,27 @@
     <title>Document</title>
 </head>
 <body>
-
+<input type="text" id="input-message">
+<button id="send-message">Send message</button>
+<ul id="list">
+    <li>Messages:</li>
+</ul>
 <script>
-    let ws = new WebSocket('ws://0.0.0.0:8001');
+    const locationByEquals = window.location.search.substr(1).split('=');
+    const userId = locationByEquals[1];
+    const ws = new WebSocket('ws://0.0.0.0:8001?userId=' + userId);
 
     ws.addEventListener('message', (event) => {
-        console.log('Message from server:' + event.data);
+        document.getElementById('list').insertAdjacentHTML('beforeend', `<li>${event.data}</li>`);
     });
 
     ws.onopen = () => {
-        ws.send('Hello from js');
+        // ws.send('Hello from js');
     };
+
+    document.getElementById('send-message').addEventListener('click', () => {
+        ws.send('User: ' + userId + ', message: ' + document.getElementById('input-message').value);
+    });
 </script>
 </body>
 </html>
